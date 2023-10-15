@@ -104,7 +104,9 @@ func (ec *EnvoyClient) Request() *http.Request {
 		body = bytes.NewReader([]byte(ec.Data))
 	} */
 
+	fmt.Println("107")
 	req, err := http.NewRequest(ec.HTTPMethod, ec.URI, nil)
+	fmt.Println("109")
 
 	if err != nil {
 		panic(err)
@@ -123,6 +125,8 @@ func (ec *EnvoyClient) Call() (*http.Response, error) {
 	if ec.HTTPClient == nil {
 		ec.HTTPClient = &http.Client{}
 	}
+
+	fmt.Println(ec)
 
 	req := ec.Request()
 
