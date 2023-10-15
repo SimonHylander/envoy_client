@@ -1,7 +1,6 @@
 package envoy_client
 
 import (
-	"bytes"
 	"fmt"
 	"net/http"
 	"os"
@@ -99,13 +98,17 @@ func (ec *EnvoyClient) Delete(path string) *EnvoyClient {
 }
 
 func (ec *EnvoyClient) Request() *http.Request {
-	var body *bytes.Reader
+	/* var body *bytes.Reader
 
-	if ec.Data != "" {
+	if ec.Data != nil && ec.Data != "" {
 		body = bytes.NewReader([]byte(ec.Data))
-	}
+	} */
 
-	req, _ := http.NewRequest(ec.HTTPMethod, ec.URI, body)
+	req, err := http.NewRequest(ec.HTTPMethod, ec.URI, nil)
+
+	if err != nil {
+		panic(err)
+	}
 
 	if ec.Headers != nil {
 		for key, value := range ec.Headers {
